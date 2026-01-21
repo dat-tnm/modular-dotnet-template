@@ -1,0 +1,31 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# User-specific files
+**/*.user
+**/*.suo
+**/*.cache
+**/.vs/
+
+# NuGet packages (should be restored)
+**/packages/
+
+# IDE folders
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test results
+**/TestResults/
+
+# Compiled artifacts
+**/*.dll
+**/*.exe
+**/*.pdb
+
+# NuGet lock files
+**/packages.lock.json

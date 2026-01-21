@@ -1,0 +1,6 @@
+@CompanyName.ProjectName.Hosts.WebApi_HostAddress = http://localhost:5265
+
+GET {{CompanyName.ProjectName.Hosts.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "dat-tnm",
+  "classifications": ["Solution", "Web", "API", "Desktop", "Modular"],
+  "identity": "Tnm.ModularMonolith.Template",
+  "name": "Tnm Modular Monolith Solution",
+  "shortName": "tnm-modular",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "description": "A modular monolith solution with WebApi, WPF, Auth, Excel services, and shared libraries",
+  "sourceName": "CompanyName.ProjectName",
+  "preferNameDirectory": false,
+  "symbols": {
+    "CompanyName": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "CompanyName",
+      "replaces": "CompanyName",
+      "description": "The company name for the namespace (e.g., 'Acme')",
+      "isRequired": true
+    },
+    "ProjectName": {
+      "type": "parameter",
+      "datatype": "text",
+      "defaultValue": "ProjectName",
+      "replaces": "ProjectName",
+      "description": "The project name for the namespace (e.g., 'ProductCatalog')",
+      "isRequired": true
+    },
+    "Framework": {
+      "type": "parameter",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net10.0",
+          "description": ".NET 10.0"
+        },
+        {
+          "choice": "net9.0",
+          "description": ".NET 9.0"
+        },
+        {
+          "choice": "net8.0",
+          "description": ".NET 8.0"
+        }
+      ],
+      "defaultValue": "net10.0",
+      "replaces": "FRAMEWORK_VERSION",
+      "description": "Target framework version"
+    },
+    "FrameworkWpf": {
+      "type": "generated",
+      "generator": "switch",
+      "datatype": "string",
+      "replaces": "FRAMEWORK_VERSION_WPF",
+      "parameters": {
+        "evaluator": "C++",
+        "cases": [
+          {
+            "condition": "(Framework == 'net10.0')",
+            "value": "net10.0-windows"
+          },
+          {
+            "condition": "(Framework == 'net9.0')",
+            "value": "net9.0-windows"
+          },
+          {
+            "condition": "(Framework == 'net8.0')",
+            "value": "net8.0-windows"
+          }
+        ]
+      }
+    },
+    "IncludeWPF": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include WPF desktop application host"
+    },
+    "IncludeAuth": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include JWT Authentication module"
+    },
+    "IncludeExcel": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include Excel service for data import/export"
+    },
+    "UseSwagger": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include Swagger/OpenAPI support in WebAPI"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!UseSwagger)",
+          "exclude": [
+            "**/Swagger/**",
+            "**/SwaggerExtensions.cs"
+          ]
+        },
+        {
+          "condition": "(!IncludeWPF)",
+          "exclude": [
+            "src/Hosts/CompanyName.ProjectName.Hosts.WPF/**"
+          ]
+        },
+        {
+          "condition": "(!IncludeAuth)",
+          "exclude": [
+            "src/Modules/CompanyName.ProjectName.Modules.Auth/**"
+          ]
+        },
+        {
+          "condition": "(!IncludeExcel)",
+          "exclude": [
+            "src/Services/CompanyName.ProjectName.Services.Excel/**"
+          ]
+        }
+      ]
+    }
+  ],
+  "primaryOutputs": [
+    {
+      "path": "src/CompanyName.ProjectName.sln"
+    },
+    {
+      "condition": "(IncludeWPF)",
+      "path": "src/Hosts/CompanyName.ProjectName.Hosts.WPF/CompanyName.ProjectName.Hosts.WPF.csproj"
+    },
+    {
+      "path": "src/Hosts/CompanyName.ProjectName.Hosts.WebApi/CompanyName.ProjectName.Hosts.WebApi.csproj"
+    }
+  ],
+  "postActions": [
+    {
+      "description": "Restore NuGet packages",
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    },
+    {
+      "description": "Open solution in IDE",
+      "manualInstructions": [
+        {
+          "text": "Open the solution file in Visual Studio or your preferred IDE"
+        }
+      ],
+      "actionId": "84C0DA21-51C8-4541-9940-6CA19AF04EE6",
+      "args": {
+        "files": "0"
+      },
+      "continueOnError": true
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Tnm.ModularMonolith.Template</id>
+    <version>1.0.0</version>
+    <description>A comprehensive .NET solution template for building modular monolith applications with WebAPI, WPF, Authentication, and Excel services. Features include JWT authentication module, unit of work pattern, and organized project structure following clean architecture principles.</description>
+    <authors>dat-tnm</authors>
+    <owners>dat-tnm</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/dat-tnm/modular-dotnet-template</projectUrl>
+    <repository type="git" url="https://github.com/dat-tnm/modular-dotnet-template.git" />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>dotnet template modular monolith webapi wpf authentication jwt excel clean-architecture netcore dotnet-template</tags>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+    <readme>README.md</readme>
+  </metadata>
+  <files>
+    <file src="content\**\*" target="content" exclude="content\**\bin\**;content\**\obj\**" />
+    <file src=".template.config\**\*" target=".template.config" />
+    <file src="README.md" target="" />
+  </files>
+</package>

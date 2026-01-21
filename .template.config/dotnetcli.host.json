@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json.schemastore.org/dotnetcli.host",
+  "symbolInfo": {
+    "CompanyName": {
+      "longName": "company-name",
+      "shortName": "c"
+    },
+    "ProjectName": {
+      "longName": "project-name",
+      "shortName": "p"
+    },
+    "Framework": {
+      "longName": "framework",
+      "shortName": "f"
+    },
+    "IncludeWPF": {
+      "longName": "include-wpf",
+      "shortName": "wpf"
+    },
+    "IncludeAuth": {
+      "longName": "include-auth",
+      "shortName": "auth"
+    },
+    "IncludeExcel": {
+      "longName": "include-excel",
+      "shortName": "excel"
+    },
+    "UseSwagger": {
+      "longName": "use-swagger",
+      "shortName": "swagger"
+    }
+  }
+}
