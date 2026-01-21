@@ -33,13 +33,13 @@ YourSolution/
 
 ### Install from NuGet (Recommended)
 
-[![NuGet](https://img.shields.io/nuget/v/tnm.ModularMonolith.Template.svg)](https://www.nuget.org/packages/tnm.ModularMonolith.Template)
+[![NuGet](https://img.shields.io/nuget/v/Tnm.ModularMonolith.Template.svg)](https://www.nuget.org/packages/Tnm.ModularMonolith.Template)
 
 ```bash
-dotnet new install tnm.ModularMonolith.Template
+dotnet new install Tnm.ModularMonolith.Template
 ```
 
-📦 **NuGet Package**: [https://www.nuget.org/packages/tnm.ModularMonolith.Template](https://www.nuget.org/packages/tnm.ModularMonolith.Template)
+📦 **NuGet Package**: [https://www.nuget.org/packages/Tnm.ModularMonolith.Template](https://www.nuget.org/packages/Tnm.ModularMonolith.Template)
 
 ### Install from Local Path (Development)
 
@@ -50,7 +50,7 @@ dotnet new install C:\path\to\modular-dotnet-template
 ### Verify Installation
 
 ```bash
-dotnet new list | findstr kry-modular
+dotnet new list | findstr dt-monolith-modular
 ```
 
 ## Usage
@@ -59,19 +59,19 @@ dotnet new list | findstr kry-modular
 
 ```bash
 # Basic usage with default options
-dotnet new kry-modular -n MyCompany.MyProject
+dotnet new dt-monolith-modular -n MyCompany.MyProject
 
 # With custom company and project names
-dotnet new kry-modular -c Acme -p ProductCatalog
+dotnet new dt-monolith-modular -c Acme -p ProductCatalog
 
 # With specific framework version
-dotnet new kry-modular -n MyCompany.MyProject -f net9.0
+dotnet new dt-monolith-modular -n MyCompany.MyProject -f net9.0
 
 # Without WPF project
-dotnet new kry-modular -n MyCompany.MyProject --include-wpf false
+dotnet new dt-monolith-modular -n MyCompany.MyProject --include-wpf false
 
 # Minimal configuration (API only, no Auth, no Excel)
-dotnet new kry-modular -n MyCompany.MyProject --include-wpf false --include-auth false --include-excel false
+dotnet new dt-monolith-modular -n MyCompany.MyProject --include-wpf false --include-auth false --include-excel false
 ```
 
 ### Command-Line Parameters
@@ -90,17 +90,17 @@ dotnet new kry-modular -n MyCompany.MyProject --include-wpf false --include-auth
 
 #### Full-Featured Solution
 ```bash
-dotnet new kry-modular -n Contoso.ERP -c Contoso -p ERP -f net10.0
+dotnet new dt-monolith-modular -n Contoso.ERP -c Contoso -p ERP -f net10.0
 ```
 
 #### API-Only Microservice
 ```bash
-dotnet new kry-modular -n MyApi -c MyCompany -p Api --include-wpf false
+dotnet new dt-monolith-modular -n MyApi -c MyCompany -p Api --include-wpf false
 ```
 
 #### Desktop Application with Services
 ```bash
-dotnet new kry-modular -n DesktopApp -c MyCompany -p Desktop --include-auth true --include-excel true
+dotnet new dt-monolith-modular -n DesktopApp -c MyCompany -p Desktop --include-auth true --include-excel true
 ```
 
 ## Post-Creation Steps
@@ -202,7 +202,7 @@ Configure connection strings in `appsettings.json`:
 ## Uninstall Template
 
 ```bash
-dotnet new uninstall C:\path\to\Kry-dotnet-template
+dotnet new uninstall Tnm.ModularMonolith.Template
 ```
 
 ## License

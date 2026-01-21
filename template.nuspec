@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Tnm.ModularMonolith.Template</id>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <description>A comprehensive .NET solution template for building modular monolith applications with WebAPI, WPF, Authentication, and Excel services. Features include JWT authentication module, unit of work pattern, and organized project structure following clean architecture principles.</description>
     <authors>dat-tnm</authors>
     <owners>dat-tnm</owners>
