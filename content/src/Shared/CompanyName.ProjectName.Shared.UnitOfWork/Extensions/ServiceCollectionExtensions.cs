@@ -19,5 +19,16 @@ namespace CompanyName.ProjectName.Shared.UnitOfWork.Extensions
 
             return services;
         }
+
+        public static IServiceCollection AddWPFDapperUnitOfWork(this IServiceCollection services, IConfiguration configuration)
+        {
+            // In WPF applications, it's common to use transient services for database connections to ensure that each operation gets a new connection instance.
+            services.Configure<DbOptions>(configuration.GetSection("DbOptions"));
+
+            services.AddTransient<IDbConnectionFactory, SqlConnectionFactory>();
+            services.AddTransient<IUnitOfWork, DapperUnitOfWork>();
+
+            return services;
+        }
     }
 }

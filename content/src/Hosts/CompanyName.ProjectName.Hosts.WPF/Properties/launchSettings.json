@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "CompanyName.ProjectName.Hosts.WPF": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "CompanyName.ProjectName.Hosts.WPF (Production)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Production"
+      }
+    }
+  }
+}

@@ -16,9 +16,35 @@ namespace CompanyName.ProjectName.Hosts.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<MainWindow> _logger;
+
+        // Constructor with dependency injection
+        public MainWindow(IConfiguration configuration, ILogger<MainWindow> logger)
         {
             InitializeComponent();
+
+            _configuration = configuration;
+            _logger = logger;
+
+            LoadConfigurationExample();
+        }
+
+        private void LoadConfigurationExample()
+        {
+            // Example: Read configuration values
+            var appName = _configuration["ApplicationSettings:ApplicationName"];
+            var version = _configuration["ApplicationSettings:Version"];
+            var environment = _configuration["ApplicationSettings:Environment"];
+            var connectionString = _configuration["DbOptions:ConnectionString"];
+
+            // Log the values
+            _logger.LogInformation("Application: {AppName} v{Version} ({Environment})",
+                appName, version, environment);
+            _logger.LogInformation("Connection String: {ConnectionString}", connectionString);
+
+            // Update window title with configuration
+            this.Title = $"{appName} v{version} - {environment}";
         }
     }
 }
