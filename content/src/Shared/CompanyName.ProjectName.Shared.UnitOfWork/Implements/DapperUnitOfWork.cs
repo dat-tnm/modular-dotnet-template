@@ -30,14 +30,7 @@ namespace CompanyName.ProjectName.Shared.UnitOfWork.Implements
 
                 if (_connection.State != ConnectionState.Open)
                 {
-                    if (_connection is SqlConnection sqlConnection)
-                    {
-                        sqlConnection.OpenAsync();
-                    }
-                    else
-                    {
-                        _connection.Open();
-                    }
+                    _connection.Open();
                 }
 
                 return _connection;
