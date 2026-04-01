@@ -1,6 +1,14 @@
-﻿using System.Windows;
+﻿using CompanyName.ProjectName.Hosts.WPF.Controls;
+using CompanyName.ProjectName.Hosts.WPF.Services;
+using CompanyName.ProjectName.Hosts.WPF.ViewModels.MainMenu;
+using CompanyName.ProjectName.Modules.Auth.Extensions;
+using CompanyName.ProjectName.Shared.UnitOfWork.Extensions;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System.Windows;
 
 namespace CompanyName.ProjectName.Hosts.WPF
 {
@@ -41,9 +49,26 @@ namespace CompanyName.ProjectName.Hosts.WPF
                 // Register UnitOfWork (required for database access)
                 services.AddWPFDapperUnitOfWork(configuration);
 
-                // Register ViewModels
+                // Register Business Directives Module
+                services.AddModuleAuthForWPF(configuration);
 
-                // Register Windows
+                // Register MainWindow first
+                services.AddSingleton<MainWindow>();
+
+                // Register Navigation Service as singleton
+                services.AddSingleton<INavigationService, NavigationService>();
+
+                // Register ViewModels
+                services.AddTransient<ViewModels.Login.LoginViewModel>();
+                services.AddTransient<MainMenuViewModel>();
+                services.AddSingleton<NavigationBarViewModel>(); // Singleton to share username across all instances
+
+                // Register Views (V3 - new implementation)
+                services.AddTransient<ViewModels.Login.LoginView>();
+                services.AddTransient<MainMenuView>();
+
+                // Register Controls
+                services.AddTransient<NavigationBar>();
             })
             .ConfigureLogging((context, logging) =>
             {
@@ -57,9 +82,19 @@ namespace CompanyName.ProjectName.Hosts.WPF
         {
             await WpfHost.StartAsync();
 
-            // Example code: Show CustomWindow as the main window
-            // var customWindow = WpfHost.Services.GetRequiredService<CustomWindow>();
-            // customWindow.Show();
+            // Get services
+            var mainWindow = WpfHost.Services.GetRequiredService<MainWindow>();
+            var navigationService = WpfHost.Services.GetRequiredService<CompanyName.ProjectName.Hosts.WPF.Services.INavigationService>();
+            var loginView = WpfHost.Services.GetRequiredService<CompanyName.ProjectName.Hosts.WPF.ViewModels.Login.LoginView>();
+
+            // Setup navigation service with MainWindow's ContentControl
+            navigationService.SetContentControl(mainWindow.MainContentControl);
+
+            // Navigate to Login view first
+            navigationService.NavigateTo(loginView);
+
+            // Show main window
+            mainWindow.Show();
 
             base.OnStartup(e);
         }
@@ -77,6 +112,10 @@ namespace CompanyName.ProjectName.Hosts.WPF
         // Helper property to access configuration from anywhere in the app
         public static IConfiguration Configuration =>
             App.WpfHost.Services.GetRequiredService<IConfiguration>();
+
+
+        // Helper property to access ServiceProvider from anywhere in the app
+        public static IServiceProvider ServiceProvider => App.WpfHost.Services;
     }
 
 }

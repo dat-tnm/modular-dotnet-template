@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="CompanyName.ProjectName.Hosts.WPF.Controls.NavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CompanyName.ProjectName.Hosts.WPF.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="400"
+             x:Name="navigationBar">
+    <Border Background="{StaticResource SurfaceBrush}" 
+            Padding="10"
+            Margin="10,10,10,0">
+        <Grid Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Back Button (Left) -->
+            <Button Grid.Column="0"
+                    Command="{Binding NavigateBackCommand}" 
+                    Style="{StaticResource SecondaryButtonStyle}" 
+                    Padding="10,8" 
+                    HorizontalAlignment="Left"
+                    IsEnabled="{Binding CanNavigateBack}"
+                    Visibility="{Binding ElementName=navigationBar, Path=ShowBackButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="←" FontSize="16" Margin="0,0,8,0"/>
+                    <TextBlock Text="Back" FontSize="14"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Right side buttons -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <!-- Logout Button -->
+                <Button Command="{Binding LogoutCommand}" 
+                        Style="{StaticResource SecondaryButtonStyle}" 
+                        Padding="12,8"
+                        Margin="8,0,0,0"
+                        Visibility="{Binding ElementName=navigationBar, Path=ShowLogoutButton, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🔒" FontSize="16" Margin="0,0,8,0"/>
+                        <TextBlock Text="Logout" FontSize="14"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Username Display -->
+                <Border Background="{StaticResource BackgroundBrush}"
+                        CornerRadius="4"
+                        Padding="12,8"
+                        BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="1"
+                        Margin="8,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="👤" FontSize="16" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding Username}" 
+                                   FontSize="14" 
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource OnSurfaceBrush}"
+                                   VerticalAlignment="Top"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

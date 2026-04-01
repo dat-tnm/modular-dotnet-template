@@ -17,9 +17,9 @@ namespace CompanyName.ProjectName.Shared.UnitOfWork.Implements
 
         public string ConnectionString => _connectionString;
 
-        public IDbConnection CreateConnection()
+        public IDbConnection CreateConnection(string? connectionString = null)
         {
-            return new SqlConnection(_connectionString);
+            return new SqlConnection(connectionString ?? _connectionString);
         }
     }
 }

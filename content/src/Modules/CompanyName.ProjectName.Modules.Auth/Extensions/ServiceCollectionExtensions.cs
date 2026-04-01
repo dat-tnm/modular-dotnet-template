@@ -48,5 +48,11 @@ namespace CompanyName.ProjectName.Modules.Auth.Extensions
             services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
             services.AddScoped<IJwtTokenService, JwtTokenService>();
         }
+
+        public static void AddModuleAuthForWPF(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<UacLoginOptions>(configuration.GetSection(UacLoginOptions.SectionName));
+            services.AddSingleton<IUACLoginService, UACLoginService>();
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace CompanyName.ProjectName.Shared.UnitOfWork.Contracts
 {
     public interface IDbConnectionFactory
     {
-        public IDbConnection CreateConnection();
+        public IDbConnection CreateConnection(string? connectionString = null);
 
         string ConnectionString { get; }
     }

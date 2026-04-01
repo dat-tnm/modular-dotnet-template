@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Globalization;
+using System.Windows.Data;
 
 namespace CompanyName.ProjectName.Hosts.WPF.Converters;
 

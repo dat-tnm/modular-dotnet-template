@@ -1,8 +1,27 @@
 ﻿<Application x:Class="CompanyName.ProjectName.Hosts.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CompanyName.ProjectName.Hosts.WPF">
+             xmlns:local="clr-namespace:CompanyName.ProjectName.Hosts.WPF"
+             xmlns:converters="clr-namespace:CompanyName.ProjectName.Hosts.WPF.Converters">
+
+
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/Colors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Generic Framework Converters -->
+            <converters:ActionButtonStyleConverter x:Key="ActionButtonStyleConverter"/>
+            <converters:RowActionCommandConverter x:Key="RowActionCommandConverter"/>
+            <converters:RowActionContentConverter x:Key="RowActionContentConverter"/>
+            <converters:RowActionTooltipConverter x:Key="RowActionTooltipConverter"/>
+
+            <!-- Common Converters -->
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
