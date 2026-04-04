@@ -23,15 +23,23 @@ public partial class LoginViewModel : ViewModelBase
     private readonly IUACLoginService _uacLoginService;
     private Window? _parentWindow;
 
-    public LoginViewModel(INavigationService navigationService, IServiceProvider serviceProvider, IConfiguration configuration, IUACLoginService uacLoginService)
+    public LoginViewModel(INavigationService navigationService, 
+        IServiceProvider serviceProvider, 
+        IConfiguration configuration, 
+        IUACLoginService uacLoginService)
     {
         _navigationService = navigationService;
         _serviceProvider = serviceProvider;
         _configuration = configuration;
         _uacLoginService = uacLoginService;
+
+        LoginCommand = new AsyncRelayCommand(Login);
     }
 
-    public ICommand LoginCommand => new AsyncRelayCommand(Login);
+    public string AppName => _configuration["ApplicationSettings:ApplicationName"] ?? "Unknown App";
+    public string AppDescription => _configuration["ApplicationSettings:ApplicationDescription"] ?? "No description available.";
+    public string CompanyName => _configuration["ApplicationSettings:CompanyName"] ?? "Unknown Company";
+    public ICommand LoginCommand {  get; private set; }
 
     public void SetParentWindow(Window window)
     {
@@ -46,40 +54,60 @@ public partial class LoginViewModel : ViewModelBase
             return;
         }
 
-        try
-        {
-            var (exitCode, output) = await RunLoginAppAndReadOutputAsync(TimeSpan.FromMinutes(5));
+        bool isLoginSucceed = false;
+        string? loginUsername = null;
+        string currentUsername = _uacLoginService.GetCurrentUsername();
 
-            if (exitCode == 0)
+        if (currentUsername != string.Empty)
+        {
+            isLoginSucceed = true;
+            loginUsername = currentUsername;
+        }
+        else
+        {
+            try
             {
-                // Set username in NavigationBar
-                var navigationBarViewModel = _serviceProvider.GetRequiredService<NavigationBarViewModel>();
-                _uacLoginService.SetCurrentUsername(output.Trim('\r', '\n'));
-                navigationBarViewModel.SetUsername(output);
+                var (exitCode, output) = await RunLoginAppAndReadOutputAsync(TimeSpan.FromMinutes(5));
 
-                // Navigate to Main Menu View after successful login
-                var mainMenuView = _serviceProvider.GetRequiredService<MainMenuView>();
-                _navigationService.NavigateTo(mainMenuView);
-
-                // Re-enable and show the main window
-                _parentWindow.IsEnabled = true;
-                _parentWindow.Show();
-
-                LoginViewModel.IsAutoLoginEnabled = false;
+                if (exitCode == 0)
+                {
+                    isLoginSucceed = true;
+                    loginUsername = output;
+                }
+                else
+                {
+                    MessageBox.Show($"User cancelled the login.", "Login failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
-            else
+            catch (OperationCanceledException)
             {
-                MessageBox.Show($"User cancelled the login.", "Login failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Login timed out. Waiting time exceeded 5 minutes.", "Login failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error launching login app:\n{ex}", "Login failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        catch (OperationCanceledException)
+
+        if (!isLoginSucceed || string.IsNullOrEmpty(loginUsername))
         {
-            MessageBox.Show("Login timed out. Waiting time exceeded 5 minutes.", "Login failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error launching login app:\n{ex}", "Login failed", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+
+        // Set username in NavigationBar
+        var navigationBarViewModel = _serviceProvider.GetRequiredService<NavigationBarViewModel>();
+        _uacLoginService.SetCurrentUsername(loginUsername.Trim('\r', '\n'));
+        navigationBarViewModel.SetUsername(loginUsername);
+
+        // Navigate to Main Menu View after successful login
+        var mainMenuView = _serviceProvider.GetRequiredService<MainMenuView>();
+        _navigationService.NavigateTo(mainMenuView);
+
+        // Re-enable and show the main window
+        //_parentWindow.IsEnabled = true;
+        //_parentWindow.Show();
+
+        LoginViewModel.IsAutoLoginEnabled = false;
     }
 
     private async Task<(int exitCode, string output)> RunLoginAppAndReadOutputAsync(TimeSpan timeout)

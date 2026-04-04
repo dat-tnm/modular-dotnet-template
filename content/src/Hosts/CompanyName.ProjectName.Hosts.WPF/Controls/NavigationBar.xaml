@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:CompanyName.ProjectName.Hosts.WPF.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="400"
-             x:Name="navigationBar">
-    <Border Background="{StaticResource SurfaceBrush}" 
+             x:Name="navigationBar"
+             Visibility="{Binding NavBarVisibility, Converter={StaticResource BoolToVisibilityConverter}}">
+    <Border Background="{StaticResource SurfaceBrush}"
             Padding="10"
             Margin="10,10,10,0">
         <Grid Height="40">

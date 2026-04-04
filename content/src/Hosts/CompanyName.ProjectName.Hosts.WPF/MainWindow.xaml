@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompanyName.ProjectName.Hosts.WPF"
+        xmlns:controls="clr-namespace:CompanyName.ProjectName.Hosts.WPF.Controls"
         mc:Ignorable="d"
         Title="app_name" 
         Height="700" 
@@ -17,6 +18,15 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <!-- Header -->
+                <controls:NavigationBar ShowBackButton="False" ShowLogoutButton="True" Margin="0,0,0,20"/>
 
-    <ContentControl x:Name="MainContentControl"/>
+                <ContentControl x:Name="MainContentControl"/>
+    
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Window>

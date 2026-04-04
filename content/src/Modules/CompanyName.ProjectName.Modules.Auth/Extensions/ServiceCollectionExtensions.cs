@@ -52,7 +52,8 @@ namespace CompanyName.ProjectName.Modules.Auth.Extensions
         public static void AddModuleAuthForWPF(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<UacLoginOptions>(configuration.GetSection(UacLoginOptions.SectionName));
-            services.AddSingleton<IUACLoginService, UACLoginService>();
+            //services.AddSingleton<IUACLoginService, UACLoginService>();
+            services.AddSingleton<IUACLoginService, MockUacLoginService>();
         }
     }
 }

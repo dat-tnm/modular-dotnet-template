@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CompanyName.ProjectName.Hosts.WPF.ViewModels.MainMenu"
-             xmlns:controls="clr-namespace:CompanyName.ProjectName.Hosts.WPF.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200">
     
@@ -16,100 +15,12 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Background="{StaticResource BackgroundBrush}">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel>
-                <!-- Header -->
-                <controls:NavigationBar Grid.Row="0" Grid.ColumnSpan="2" 
-                                       ShowBackButton="False" ShowLogoutButton="True"/>
-
-                <TextBlock Text="Business Directives Management"
+    <Grid>
+                <TextBlock Text="Example Main Menu"
                           FontSize="32"
                           FontWeight="Bold"
                           Foreground="{StaticResource OnSurfaceBrush}"
                           Margin="20"/>
-
-                <!-- On-hold BPM Group -->
-                <Border Background="{StaticResource SurfaceBrush}"
-                       BorderBrush="{StaticResource BorderBrush}"
-                       BorderThickness="1"
-                       CornerRadius="8"
-                       Padding="24"
-                       Margin="20">
-                    <StackPanel>
-                        <TextBlock Text="On-hold BPM"
-                                  FontSize="24"
-                                  FontWeight="SemiBold"
-                                  Foreground="{StaticResource InfoBrush}"
-                                  Margin="0,0,0,20"/>
-                        
-                        <WrapPanel Orientation="Horizontal">
-                            
-                            <!-- Opcode Button -->
-                            <Button Style="{StaticResource DashboardTileButtonStyle}"
-                                   Command="{Binding NavigateToOpcodeCommand}">
-                                <StackPanel>
-                                    <TextBlock Text="📋" 
-                                             FontSize="48" 
-                                             Margin="0,0,0,12"
-                                             HorizontalAlignment="Left"/>
-                                    <TextBlock Text="Job\Part Opcode on-hold"
-                                             FontSize="20"
-                                             FontWeight="SemiBold"
-                                             Foreground="{StaticResource OnSurfaceBrush}"
-                                             Margin="0,0,0,8"/>
-                                    <TextBlock Text="Block reporting Job\Part at Opcode"
-                                             FontSize="14"
-                                             Foreground="{StaticResource OnSurfaceSecondaryBrush}"
-                                             TextWrapping="Wrap"
-                                             MaxWidth="210"/>
-                                </StackPanel>
-                            </Button>
-
-                            <!-- Job Button -->
-                            <!--<Button Style="{StaticResource DashboardTileButtonStyle}"
-                                   Command="{Binding NavigateToJobCommand}">
-                                <StackPanel>
-                                    <TextBlock Text="📋" 
-                                             FontSize="48" 
-                                             Margin="0,0,0,12"
-                                             HorizontalAlignment="Left"/>
-                                    <TextBlock Text="Job on-hold"
-                                             FontSize="20"
-                                             FontWeight="SemiBold"
-                                             Foreground="{StaticResource OnSurfaceBrush}"
-                                             Margin="0,0,0,8"/>
-                                    <TextBlock Text="Block reporting on Job"
-                                             FontSize="14"
-                                             Foreground="{StaticResource OnSurfaceSecondaryBrush}"
-                                             TextWrapping="Wrap"
-                                             MaxWidth="210"/>
-                                </StackPanel>
-                            </Button>-->
-
-                            <!-- Allocate MTL Button -->
-                            <Button Style="{StaticResource DashboardTileButtonStyle}"
-                                   Command="{Binding NavigateToAllocateMtlCommand}">
-                                <StackPanel>
-                                    <TextBlock Text="📋" 
-                                             FontSize="48" 
-                                             Margin="0,0,0,12"
-                                             HorizontalAlignment="Left"/>
-                                    <TextBlock Text="Allocate MTL on-hold"
-                                             FontSize="20"
-                                             FontWeight="SemiBold"
-                                             Foreground="{StaticResource OnSurfaceBrush}"
-                                             Margin="0,0,0,8"/>
-                                    <TextBlock Text="Block allocating Part MTL - Lot num on a Job"
-                                             FontSize="14"
-                                             Foreground="{StaticResource OnSurfaceSecondaryBrush}"
-                                             TextWrapping="Wrap"
-                                             MaxWidth="210"/>
-                                </StackPanel>
-                            </Button>
-                        </WrapPanel>
-                    </StackPanel>
-                </Border>
 
                 <!-- Complete CMMOPS BPM Group -->
                 <Border Background="{StaticResource SurfaceBrush}"
@@ -231,7 +142,5 @@
                         </WrapPanel>
                     </StackPanel>
                 </Border>
-            </StackPanel>
-        </ScrollViewer>
     </Grid>
 </UserControl>
